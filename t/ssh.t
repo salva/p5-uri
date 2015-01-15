@@ -48,6 +48,14 @@ ssh_test('ssh://user@host.example.com:2222',
          port => 2222,
          path => '');
 
+ssh_test('ssh://user:6789@host.example.com:2222',
+         scheme => 'ssh',
+         user => 'user',
+	 password => '6789',
+         host => 'host.example.com',
+         port => 2222,
+         path => '');
+
 ssh_test('ssh://user;fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87@host.example.com',
          scheme => 'ssh',
          user => 'user',
@@ -56,17 +64,32 @@ ssh_test('ssh://user;fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-
          path => '',
          c_params => ['fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87']);
 
-ssh_test('ssh://user;fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87,'
-         . 'key-path=/home/user/.ssh/id_dsa@host.example.com',
+ssh_test('ssh://user;key-file=id_dsa@host.example.com',
+         scheme => 'ssh',
+         user => 'user',
+         host => 'host.example.com',
+         port => 2222,
+         path => '',
+         c_params => ['key-file=id_dsa']);
+
+ssh_test('ssh://user;fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87,key-file=id_dsa@host.example.com',
          scheme => 'ssh',
          user => 'user',
          host => 'host.example.com',
          port => 2222,
          path => '',
          c_params => ['fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87', 
-                      'key-path=/home/user/.ssh/id_dsa']);
+                      'key-file=id_dsa']);
 
-
+ssh_test('ssh://user:passwd;fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87,key-file=id_dsa@host.example.com',
+         scheme => 'ssh',
+         user => 'user',
+	 password => 'passwd',
+         host => 'host.example.com',
+         port => 2222,
+         path => '',
+         c_params => ['fingerprint=ssh-dss-c1-b1-30-29-d7-b8-de-6c-77-10-d7-46-41-63-87', 
+                      'key-file=id_dsa']);
 
 __END__
 
